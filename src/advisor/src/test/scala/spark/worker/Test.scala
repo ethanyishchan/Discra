@@ -76,7 +76,10 @@ object Test {
         Const.actualLocalState.bearing,
         Const.actualLocalState.speedIntruder)
     }
-
+    println("local state")
+    println(localState)
+    println("globla state")
+    println(Const.actualLocalState)
     assert(equals(localState, Const.actualLocalState))
     passTest("global to local state constructor")
   }
@@ -125,8 +128,13 @@ object Test {
   }
 
   def testUtilityRead(filename: String): DenseMatrix[Double] = {
+
     Policy.readUtility(filename) match {
       case Some(utility) =>
+        println(Const.Cols)
+        println(Const.Rows)
+        println(utility.cols)
+        println(utility.rows)
         assert(utility.cols == Const.Cols && utility.rows == Const.Rows)
         passTest("utility read")
         utility

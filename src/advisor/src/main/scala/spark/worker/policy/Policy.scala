@@ -163,11 +163,15 @@ object Policy {
 
   /** Loads the utility lookup table into memory. */
   def readUtility(filename: String): Option[DenseMatrix[Double]] = {
+    println("reading utility .. ")
+    println("file name")
+    println(filename)
     def trycsvread (csvfilename: String): Try[DenseMatrix[Double]] =
       Try(csvread(new File(filename)))
 
     trycsvread(filename) match {
       case Failure(f) =>
+        println("case failture")
         System.err.println(f)
         None
       case Success(utility) => Some(utility)
@@ -215,11 +219,14 @@ object Policy {
 
     implicit val formats = DefaultFormats
 
+    println(drones.toString)
     val jsonadvs: List[Advisory] =
       for (idrone <- drones.indices.toList) yield {
         val state = drones(idrone)
         val bankAngle = advs(idrone)
 
+        println("state" + state)
+        println("bank angle: " + bankAngle)
         val clearOfConflict = bankAngle match {
           case Const.ClearOfConflict => "true"
           case _ => "false"
@@ -248,7 +255,8 @@ object Policy {
   private def bankAngle2turnRate(bankAngle: Double, speed: Double): Double = {
     bankAngle match {
       case Const.ClearOfConflict => 0.0
-      case _ => Const.G * math.tan(bankAngle) / speed
+//      case _ => Const.G * math.tan(bankAngle) / speed
+      case _ => bankAngle
     }
   }
 }

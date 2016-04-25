@@ -8,13 +8,14 @@ import breeze.plot._
 
 object Test {
   def main(args: Array[String]): Unit = {
+    println("TESTING DRONE/TEST.scala now!!!aa")
     println("INFO beginning unit tests")
 
     val jsonString = testJSON()
     testDroneAdvisory(jsonString)
     testNoise()
     testDroneDynamics()
-
+    println("TESTING DRONE/TEST.scala now!!!")
     println("INFO unit tests complete")
   }
 
@@ -42,8 +43,10 @@ object Test {
 
   /** Plots drone trajectories for visual inspection. */
   def testDroneDynamics(): Unit = {
-    val drone0 = Drone("fid-test0", 0.0, 0.0, 0.0, 10.0, TestConst.NoiseSample)
-    val drone1 = Drone("fid-test1", 0.0, 0.0, 0.0, 15.0, TestConst.NoiseSample)
+//    val drone0 = Drone("fid-test0", 0.0, 0.0, 0.0, 10.0, TestConst.NoiseSample)
+//    val drone1 = Drone("fid-test1", 0.0, 0.0, 0.0, 15.0, TestConst.NoiseSample)
+    val drone0 = Drone("fid-test0", 0.0, 0.0, 0.0, 3.0, TestConst.NoiseSample)
+    val drone1 = Drone("fid-test1", 0.0, 0.0, 0.0, 7.0, TestConst.NoiseSample)
 
     implicit val formats = DefaultFormats
     val jsonAdvisories = write(TestConst.DummyAdvisories)

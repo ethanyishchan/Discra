@@ -74,8 +74,10 @@ object Streamer {
 
     val ssc = new StreamingContext(conf, Seconds(1))
 
+    //initialize policy file
     val policy = ssc.sparkContext.broadcast(Policy.defaultPolicy())
 
+    //create producer pool
     val producerPool = ssc.sparkContext.broadcast(KafkaPool(brokers))
 
     ssc.checkpoint("ckpt-policy")
@@ -84,10 +86,13 @@ object Streamer {
     val topicsSet = topics.split(",").toSet
     val kafkaParams = Map[String, String]("metadata.broker.list" -> brokers)
 
+    //get the stream from conflicts topic
     val rawConflicts =
       KafkaUtils.createDirectStream[
         String, String, StringDecoder, StringDecoder](
           ssc, kafkaParams, topicsSet)
+
+    //get a visualization stream
 
     rawConflicts  // whitespace-separated set of conflicts, which are comma-separated DroneGlobalStates
       .flatMap(_._2.split(" "))  // separate into conflict strings (concatenated flight states)
@@ -98,12 +103,14 @@ object Streamer {
         if (drones.length > 1) {  // ignore singular drone "conflicts"
           Some(policy.value.advisories(drones, ids))
         } else {
+          println("none in else")
           None
         }
       }
       .map {
         case Some(advs) =>
           advs.foreach(publishAdvisory(_, producerPool.value))
+        case None => println("None and did not publish any advisory")
       }
       .print(0)  // need output to run ssc
 

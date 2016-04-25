@@ -84,13 +84,20 @@ object Simulator {
       .set("spark.executor.memory", "1g")
       .set("spark.rdd.compress","true")
 
+
+    //start a streaming context
     val ssc = new StreamingContext(conf, Seconds(1))
+
+    //starts a broadcast with producers into kafkapool
     val producerPool = ssc.sparkContext.broadcast(KafkaPool(brokers))
 
+    //initializes drones from constants, might have to re-do this part to listen to updates
     val rawDrones: mutable.HashMap[String, Drone] = Const.DummyDrones
     val drones = ssc.sparkContext.broadcast(rawDrones)
 
     // initialize process by sending status
+
+    //start a kafka stream to listen to status
     drones.value.values.foreach { drone =>
       val status = jsonStatus(drone)
       producerPool.value.send("status", status)
@@ -100,6 +107,7 @@ object Simulator {
     val topicsSet = "advisory".split(",").toSet
     val kafkaParams = Map[String, String]("metadata.broker.list" -> brokers)
 
+    // initialize the advisorystream
     val advisoryStream: InputDStream[(String, String)] =
       KafkaUtils.createDirectStream[String, String, StringDecoder, StringDecoder](
         ssc, kafkaParams, topicsSet)
