@@ -15,7 +15,7 @@ from flask_googlemaps import GoogleMaps, Map
 from kafka import KafkaConsumer
 from pykafka import KafkaClient
 from flask import Flask, request,render_template, jsonify, Response, session
-from flask.ext.cache import Cache
+#from flask.ext.cache import Cache
 import numpy as np
 
 #constants
