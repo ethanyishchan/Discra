@@ -41,10 +41,10 @@ bin/kafka-server-start.sh config/server.properties
 python DiscraVisualization/app.py 
 
 4. set up "Kafka to Flask" position updates
-python KafkaToGUI/post_position_updates_from_kafka.py
+python KafkaToWebServer/post_position_updates_from_kafka.py
 
 5. set up "Kafka to Flask" advisory updates
-python KafkaToGUI/post_advisories_from_kafka.py
+python KafkaToWebServer/post_advisories_from_kafka.py
 
 6. set up "UTM to Kafka"
 python UTMToKafka/send_positions_to_kafka.py
