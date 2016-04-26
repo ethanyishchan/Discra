@@ -30,6 +30,8 @@ cd /tmp/kafka-logs
 rm conflict-0/* status-0/* advisory-0/*
 
 
+
+
 ############## Live Demo Steps ##############
 
 1. set up zookeeper server (Ensure you are in Kafka Folder)
@@ -39,6 +41,7 @@ bin/zookeeper-server-start.sh config/zookeeper.properties
 bin/kafka-server-start.sh config/server.properties
 
 3. set up Flask local host server
+Update DiscraVisualization/app.py accordingly with new GUFI constants
 python DiscraVisualization/app.py 
 
 4. set up "Kafka to Flask" position updates
@@ -48,6 +51,7 @@ python KafkaToWebServer/post_position_updates_from_kafka.py
 python KafkaToWebServer/post_advisories_from_kafka.py
 
 6. set up "UTM to Kafka"
+Update UTMToKafka/send_positions_to_kafka.py accordingly with new GUFI constants
 python UTMToKafka/send_positions_to_kafka.py
 
 7. run Advisory in Scala (This will be in IntelliJ)
@@ -59,6 +63,9 @@ compile whole Ingestor module
 run src/test/scala/ingestor/test.scala (Right Click file and Click "Run" in the GUI)
 
 9. sit tight and pray.
+
+
+
 
 ############## Run Simulation Steps ##############
 
