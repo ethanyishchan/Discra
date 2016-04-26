@@ -1,10 +1,12 @@
 ############## Places to change to update Policy constants ##############
 
+
 If change policy, places where to change hard coded constants:
+0. Move new policy file into correct folder (latest policy is here: https://drive.google.com/open?id=0BwcUmeL8skj3SWJuX2RZQ1hIVkk)
 1. advisor -- policy/const.scala -- S1 to S5 + Actionset
 2. advisor -- worker/const.scala -- S1 to S5 + Actionset
 3. advisor -- policy/const.scala --- final val UtilityFile = "/Users/yishh/Box Sync/research/Discra/data/eric_header_false.csv"
-4. advisor -- worker/const.scala --- UtilityFile = "/Users/yishh/Box Sync/research/Discra/data/eric_3.csv"
+4. advisor -- worker/const.scala --- UtilityFile = "/Discra/SparkAdvisoryIngestorSimulator/data/eric4.csv"
 
 
 
