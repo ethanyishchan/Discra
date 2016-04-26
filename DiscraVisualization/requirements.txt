@@ -1,2 +1,3 @@
 Flask
 PyKafka
+pip install kafka-python
