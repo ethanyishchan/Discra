@@ -16,7 +16,6 @@ If to run in simulation instead of LIVE (real drones sending data) mode
 
 
 
-
 ############## Monitoring topics ################
 
 bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic advisory --from-beginning
@@ -25,9 +24,11 @@ bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic conflict --from
 
 bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic status --from-beginning
 
+
 ############## Remove old msgs in topics ##############
 cd /tmp/kafka-logs
 rm conflict-0/* status-0/* advisory-0/*
+
 
 ############## Live Demo Steps ##############
 
@@ -50,14 +51,50 @@ python KafkaToWebServer/post_advisories_from_kafka.py
 python UTMToKafka/send_positions_to_kafka.py
 
 7. run Advisory in Scala (This will be in IntelliJ)
-compile whole module
-run test/scala/spark/driver/test.scala (Right Click file and Click "Run" in the GUI)
+compile whole Advisory module
+run src/test/scala/spark/driver/test.scala (Right Click file and Click "Run" in the GUI)
 
-8. run Ingestor in Scala
-compile whole module
-run test.scala (Right Click file and Click "Run" in the GUI)
+8. run Ingestor in Scala (This will be in IntelliJ)
+compile whole Ingestor module
+run src/test/scala/ingestor/test.scala (Right Click file and Click "Run" in the GUI)
 
 9. sit tight and pray.
+
+############## Run Simulation Steps ##############
+
+1. set up zookeeper server (Ensure you are in Kafka Folder)
+bin/zookeeper-server-start.sh config/zookeeper.properties
+
+2. set up kafka server (Ensure you are in Kafka Folder)
+bin/kafka-server-start.sh config/server.properties
+
+3. set up Flask local host server
+python DiscraVisualization/app.py 
+
+4. set up "Kafka to Flask" position updates
+python KafkaToWebServer/post_position_updates_from_kafka.py
+
+5. set up "Kafka to Flask" advisory updates
+python KafkaToWebServer/post_advisories_from_kafka.py
+
+6. set up "UTM to Kafka"
+python UTMToKafka/send_positions_to_kafka.py
+
+7. Change areas in code "Toggle Between Simulated and LIVE modes require changing code segments"
+
+8. run Advisory in Scala (This will be in IntelliJ)
+compile whole Advisory module
+run src/test/scala/spark/driver/test.scala (Right Click file and Click "Run" in the GUI)
+
+9. run Ingestor in Scala (This will be in IntelliJ)
+compile whole Ingestor module
+run src/test/scala/ingestor/test.scala (Right Click file and Click "Run" in the GUI)
+
+10. run Simulator in Scala (This will be in IntelliJ)
+compile whole Simulator module
+run src/test/scala/simulator/test.scala (Right Click file and Click "Run" in the GUI)
+
+11. sit tight and pray.
 
 
 
