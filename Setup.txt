@@ -1,25 +1,23 @@
+############## Places to change to update Policy constants ##############
+
 If change policy, places where to change hard coded constants:
 1. advisor -- policy/const.scala -- S1 to S5 + Actionset
 2. advisor -- worker/const.scala -- S1 to S5 + Actionset
 3. advisor -- policy/const.scala --- final val UtilityFile = "/Users/yishh/Box Sync/research/Discra/data/eric_header_false.csv"
 4. advisor -- worker/const.scala --- UtilityFile = "/Users/yishh/Box Sync/research/Discra/data/eric_3.csv"
-5.
 
-If to run in simulation instead of LIVE mode
+
+
+############## Toggle Between Simulated and LIVE modes require changing code segments ##############
+If to run in simulation instead of LIVE (real drones sending data) mode
 1. change simProducerLive to simProducer
 2. getDroneString - change to proper lonlat.
 3. live = False - in simulate_post_positions_from_kafka.py and post_advisories_from_kafka.py
-4. 
 
 
-Drone Lab passcode: 370108
 
 
-Room 267:  523603
-Room 353:  360655
-
-
-Monitoring topics
+############## Monitoring topics ################
 
 bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic advisory --from-beginning
 
@@ -27,20 +25,20 @@ bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic conflict --from
 
 bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic status --from-beginning
 
-Remove old msgs in topics
+############## Remove old msgs in topics ##############
 cd /tmp/kafka-logs
 rm conflict-0/* status-0/* advisory-0/*
 
-Live Demo Steps
+############## Live Demo Steps ##############
 
-1. set up zookeeper server
+1. set up zookeeper server (Ensure you are in Kafka Folder)
 bin/zookeeper-server-start.sh config/zookeeper.properties
 
-2. set up kafka server
+2. set up kafka server (Ensure you are in Kafka Folder)
 bin/kafka-server-start.sh config/server.properties
 
 3. set up Flask local host server
-python app.py 
+python DiscraVisualization/app.py 
 
 4. set up "Kafka to Flask" position updates
 python KafkaToGUI/post_position_updates_from_kafka.py
@@ -49,15 +47,15 @@ python KafkaToGUI/post_position_updates_from_kafka.py
 python KafkaToGUI/post_advisories_from_kafka.py
 
 6. set up "UTM to Kafka"
-python stanford-utm/send_positions_to_kafka.py
+python UTMToKafka/send_positions_to_kafka.py
 
-7. run Advisory in Scala
+7. run Advisory in Scala (This will be in IntelliJ)
 compile whole module
-run test/scala/spark/driver/test.scala
+run test/scala/spark/driver/test.scala (Right Click file and Click "Run" in the GUI)
 
 8. run Ingestor in Scala
 compile whole module
-run test.scala
+run test.scala (Right Click file and Click "Run" in the GUI)
 
 9. sit tight and pray.
 
