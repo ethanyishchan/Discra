@@ -33,6 +33,7 @@ bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic conflict --from
 bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic status --from-beginning
 
 
+
 ############## Remove old msgs in topics ##############
 cd /tmp/kafka-logs
 rm conflict-0/* status-0/* advisory-0/*
