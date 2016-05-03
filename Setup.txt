@@ -1,3 +1,9 @@
+############## Requirements for all of this stuff to run ################
+
+Python 2.7.9 and above. 
+Python packages: requests, numpy, kafka-python, pykafka, Flask, flask-googlemaps
+
+
 ############## Places to change to update Policy constants ##############
 
 
