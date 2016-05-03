@@ -49,27 +49,27 @@ bin/zookeeper-server-start.sh config/zookeeper.properties
 2. set up kafka server (Ensure you are in Kafka Folder)
 bin/kafka-server-start.sh config/server.properties
 
-3. set up Flask local host server
-Update DiscraVisualization/app.py accordingly with new GUFI constants
-python DiscraVisualization/app.py 
-
-4. set up "Kafka to Flask" position updates
-python KafkaToWebServer/post_position_updates_from_kafka.py
-
-5. set up "Kafka to Flask" advisory updates
-python KafkaToWebServer/post_advisories_from_kafka.py
-
-6. set up "UTM to Kafka"
-Update UTMToKafka/send_positions_to_kafka.py accordingly with new GUFI constants
-python UTMToKafka/send_positions_to_kafka.py
-
-7. run Advisory in Scala (This will be in IntelliJ)
+3. run Advisory in Scala (This will be in IntelliJ)
 compile whole Advisory module
 run src/test/scala/spark/driver/test.scala (Right Click file and Click "Run" in the GUI)
 
-8. run Ingestor in Scala (This will be in IntelliJ)
+4. run Ingestor in Scala (This will be in IntelliJ)
 compile whole Ingestor module
 run src/test/scala/ingestor/test.scala (Right Click file and Click "Run" in the GUI)
+
+5. set up "UTM to Kafka"
+Update UTMToKafka/send_positions_to_kafka.py accordingly with new GUFI constants
+python UTMToKafka/send_positions_to_kafka.py
+
+6. set up Flask local host server
+Update DiscraVisualization/app.py accordingly with new GUFI constants
+python DiscraVisualization/app.py 
+
+7. set up "Kafka to Flask" position updates
+python KafkaToWebServer/post_position_updates_from_kafka.py
+
+8. set up "Kafka to Flask" advisory updates
+python KafkaToWebServer/post_advisories_from_kafka.py
 
 9. sit tight and pray.
 
